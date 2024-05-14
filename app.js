@@ -2,6 +2,9 @@ import chalkAnimation from 'chalk-animation';
 import chalk from 'chalk';
 import figlet from 'figlet';
 import input from 'input';
+import { createSpinner } from 'nanospinner';
+import sfx from 'sfx';
+
 var playerName;
 var score;
 
@@ -60,6 +63,55 @@ async function intro() {
     });
     await sleep(500);
     console.log(chalk.yellowBright("Let's Start the game, " + playerName + "!"));
+
+    await game_loop();
+}
+
+async function game_loop() {
+    score = 0;
+    var idx = 0;
+    for (const q of questions) {
+        const question = chalkAnimation.radar(q.text, q.speed);
+        await sleep(q.wait);
+        question.stop();
+
+        const userText = await input.text("What was written there?", {
+            validate(answer) {
+                if (answer.length != 0) return true;
+
+                return `Atleast enter something 🤦`
+            }
+        });
+
+        const check = createSpinner("Checking your answer").start();
+        await sleep(1000);
+        if (userText === q.text) {
+            check.success( {text: "Yay 🎉 Right Answer"} );
+            sfx.play("sounds/correct.aiff");
+
+            await sleep(1000);
+            chalkAnimation.neon(chalk.greenBright("+1 Points 🪙 !"), 2);
+            score++;
+
+
+        } else {
+            check.error( {text: "Uff 🤦 How did you get it wrong?"} );
+            sfx.funk();
+        }
+
+        await sleep(1500);
+
+        if (idx+1 != questions.length) {
+            console.log(chalk.blue("Now onto the next question"));
+            await sleep(800);
+            console.log(chalk.inverse("Get ready 👀👀👀"));
+
+            await sleep(2000);
+            console.log();
+        }
+
+        idx++;
+    };
 
 }
 await welcome();
