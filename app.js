@@ -113,5 +113,21 @@ async function game_loop() {
         idx++;
     };
 
+    await outro();
 }
+
+async function outro() {
+    await sleep(800);
+    console.log("\nCongrats 👏 for finishing the game!");
+    await sleep(1500);
+    console.log(`
+    Your Score is ${chalk.bgGreenBright(score)} points 🪙🪙🪙!
+    `);
+    
+    await sleep(900);
+    console.log("Play again sometime!");
+    await sleep(500);
+    console.log("Bye");
+}
+
 await welcome();
