@@ -40,4 +40,26 @@ async function welcome() {
         await intro();
     });
 }
+
+async function intro() {
+    console.log("\n");
+    console.log(`
+        ${chalk.bgBlue.underline("How to Play")}
+        In this game, you will be shown a text to peek for a duration of time, and then will be asked to type that text out
+
+    `);
+    await sleep();
+    console.log("If you type it " + chalk.bgGreen(" correctly ") + ", you get " + chalk.green("+1") + " point");
+    await sleep();
+    playerName = await input.text("To begin, what's your name?", {
+        validate(answer) {
+            if (answer.length != 0) return true;
+
+            return 'Your name has to be something';
+        }
+    });
+    await sleep(500);
+    console.log(chalk.yellowBright("Let's Start the game, " + playerName + "!"));
+
+}
 await welcome();
