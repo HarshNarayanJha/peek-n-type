@@ -22,6 +22,16 @@ const questions = [
     new Question("This is simple", 0.2),
     new Question("Wanna type out this long text", 0.6),
     new Question("How about ranking up the difficulty", 1),
+    new Question("Can you keep up with this speed", 1.4),
+    new Question("Type out this rhythmic prose", 1.5),
+    new Question("What about this cryptic message?", 1.7),
+    new Question("Can you decipher this code?", 1.8),
+    new Question("Type out this tongue twister", 2),
+    new Question("This one's a palindrome", 2.1),
+    new Question("Type out this haiku", 0.4),
+    new Question("What's this famous quote?", 0.5),
+    new Question("Type out this pangram", 0.7),
+    new Question("This one's a tongue twister", 0.5),
 ]
 
 async function welcome() {
